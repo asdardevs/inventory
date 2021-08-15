@@ -1,0 +1,103 @@
+  body,
+  html {
+      height: 100%;
+  }
+
+  .bg1 {
+      /* The image used */
+      background-image: url("../../dist/img/bg.jpg");
+
+      /* Full height */
+      height: 100%;
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+  }
+
+  .bg-light-cs {
+      background-color: #f5f5f5;
+  }
+
+  .text-black {
+      color: #000;
+  }
+
+  @media (min-width: 376px) {
+      .h1-cs {
+          font-size: 30px;
+      }
+
+      .pt-cs-5 {
+          padding-top: 0rem;
+      }
+
+      .panduan {
+          font-size: 12px;
+      }
+  }
+
+  @media (min-width: 768px) {
+      .h1-cs {
+          font-size: 50px;
+      }
+
+      .pt-cs-5 {
+          padding-top: 3rem;
+      }
+
+      .panduan {
+          font-size: 1rem;
+      }
+  }
+
+
+
+  .bg-amber {
+      background-color: #d83b01;
+      color: #fff;
+  }
+
+  .bg-amber:hover {
+      background-color: #a22c01;
+      color: #fff;
+  }
+
+  .btn-outline-amber {
+      color: #d83b01;
+      border-color: #d83b01;
+      background-color: #fff;
+  }
+
+  .btn-outline-amber:hover {
+      color: #d83b01;
+      background-color: #d83a0123;
+  }
+
+  .w-500 {
+      font-weight: 500;
+  }
+
+  .w-600 {
+      font-weight: 500;
+  }
+
+  label:not(.form-check-label):not(.custom-file-label) {
+      font-weight: 500;
+  }
+
+  .form-control,
+  .custom-select,
+  .custom-file-label,
+  .alert,
+  .custom-file-label::after {
+
+      border-radius: 0rem;
+
+  }
+
+  .shadow-top {
+      border-top: 1.3px solid rgb(187, 187, 187);
+      background-color: #fff;
+
+  }
