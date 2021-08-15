@@ -19,7 +19,10 @@ class CreateCustomersTable extends Migration
             $table->string('telepon');
             $table->text('alamat');
             $table->string('email');
-            $table->string('email');
+            $table->integer('diskon');
+            // 0 -> % & 1->fix
+            $table->enum('tipe_diskon',[0,1]);
+            $table->string('foto_ktp');
             $table->timestamps();
         });
     }

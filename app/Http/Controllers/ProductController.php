@@ -61,8 +61,14 @@ class ProductController extends Controller
         
         $foto = $request->file('foto');
         if ($foto) {
+            $cek = Product::where('id', $request->kode)->first();
+            $path = 'file/' . $cek['foto'];
+            if (is_file($path)) {
+                unlink($path);
+            }
             $extension = $foto->getClientOriginalExtension();
             $filename =  $request->nama . '_' . time() . '.' . $extension;
+
             $foto->move('file/', $filename);
             $data['foto'] = $filename;
           

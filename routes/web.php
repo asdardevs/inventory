@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -32,10 +32,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function() {
     Route::get('beranda', [HomeController::class, 'index'])->name('beranda.index');
-    Route::resource('product', ProductController::class)->except('create');
-    Route::resource('permohonan', AccountController::class)->except('create');
-    Route::resource('history', HistoryController::class)->only('index');
-
+    Route::resource('product', ProductController::class)->only('index','store','destroy');
+    Route::resource('customer', CustomerController::class)->only('index','store','destroy');
+  
 });
 
 // Route::resource('/prodi', ProdiController::class);

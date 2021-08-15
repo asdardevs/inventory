@@ -58,10 +58,10 @@
 
                     <li class="nav-item">
                         <inertia-link
-                            :href="route('product.index')"
+                            :href="route('customer.index')"
                             class="nav-link"
                             :class="
-                                route().current('product.*') ? 'active' : ' '
+                                route().current('customer.*') ? 'active' : ' '
                             "
                         >
                             <i class="nav-icon fas fa-users"></i>
