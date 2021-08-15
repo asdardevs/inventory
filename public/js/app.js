@@ -18949,19 +18949,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["product"],
+  props: ["customer"],
   components: {
     AdminLte: _Layouts_AdminLte__WEBPACK_IMPORTED_MODULE_0__.default
   },
   data: function data() {
     return {
       form: this.$inertia.form({
+        kode: "",
         nama: "",
-        stok: "",
-        harga_satuan: "",
-        satuan: "",
-        foto: "",
-        kode: ""
+        telepon: "",
+        alamat: "",
+        email: "",
+        diskon: "",
+        tipe_diskon: "",
+        foto_ktp: ""
       }),
       onProgress: false
     };
@@ -18973,21 +18975,21 @@ __webpack_require__.r(__webpack_exports__);
     getTable: function getTable() {
       var html = "";
       var no = 1;
-      this.product.forEach(function (element) {
-        html += "<tr>\n                <td>".concat(no++, "</td>\n                <td>").concat(element.nama, "</td>\n                <td>").concat(element.stok, "</td>\n                <td>").concat(element.harga_satuan, "</td>\n                <td>").concat(element.satuan, "</td>\n                <td> <img src=\"/file/").concat(element.foto, "\" \" width=\"80px\" alt=\"\"></td>\n                <td>\n                <button type=\"button\"  class=\"btn btn-block btn-default btn-flat edit\" \n                data-id=\"").concat(element.id, "\"  \n                data-nama=\"").concat(element.nama, "\" data-stok=\"").concat(element.stok, "\" \n                data-harga_satuan=\"").concat(element.harga_satuan, "\" \n                data-satuan=\"").concat(element.satuan, "\">Edit</button> \n              <button type=\"button\"\n                class=\"btn btn-block btn-danger btn-flat hapus\" data-id=\"").concat(element.id, "\"><i class=\"fas fa-trash\"></i></button>\n                </td>\n                \n                ");
+      this.customer.forEach(function (element) {
+        html += "<tr>\n                <td>".concat(no++, "</td>\n                <td>").concat(element.nama, "</td>\n                <td>").concat(element.telepon, "</td>\n                <td>").concat(element.alamat, "</td>\n                <td>").concat(element.email, "</td>\n                <td>").concat(element.diskon, "</td>\n                <td> ").concat(element.tipe_diskon == 0 ? '<span class="badge bg-primary">Percent</span>' : '<span class="badge bg-danger">Fix</span>', "</td>\n                <td> <img src=\"/ktp/").concat(element.foto_ktp, "\" \" width=\"80px\" alt=\"\"></td>\n               \n               <td>\n                <button type=\"button\"  class=\"btn btn-block btn-default btn-flat edit\" \n                data-id=\"").concat(element.id, "\"  \n                data-nama=\"").concat(element.nama, "\" \n                data-telepon=\"").concat(element.telepon, "\" \n                data-alamat=\"").concat(element.alamat, "\" \n                data-diskon=\"").concat(element.diskon, "\" \n                data-tipe_diskon=\"").concat(element.tipe_diskon, "\" \n                data-email=\"").concat(element.email, "\">Edit</button> \n              <button type=\"button\"\n                class=\"btn btn-block btn-danger btn-flat hapus\" data-id=\"").concat(element.id, "\"><i class=\"fas fa-trash\"></i></button>\n                </td>\n                \n                ");
       });
       $("#tabel-body").html(html);
     },
     simpan: function simpan() {
       var _this = this;
 
-      if (this.$refs.foto) {
-        this.form.foto = this.$refs.foto.files[0];
+      if (this.$refs.foto_ktp) {
+        this.form.foto_ktp = this.$refs.foto_ktp.files[0];
       }
 
       var self = this;
       this.onProgress = true;
-      this.form.post(this.route("product.store"), {
+      this.form.post(this.route("customer.store"), {
         preserveScroll: true,
         onSuccess: function onSuccess() {
           self.onProgress = false;
@@ -19018,10 +19020,12 @@ __webpack_require__.r(__webpack_exports__);
       $(".edit").click(function () {
         var id = $(this).data("id");
         self.form.kode = id;
-        self.form.harga_satuan = $(this).data("harga_satuan");
-        self.form.satuan = $(this).data("satuan");
         self.form.nama = $(this).data("nama");
-        self.form.stok = $(this).data("stok");
+        self.form.telepon = $(this).data("telepon");
+        self.form.alamat = $(this).data("alamat");
+        self.form.email = $(this).data("email");
+        self.form.diskon = $(this).data("diskon");
+        self.form.tipe_diskon = $(this).data("tipe_diskon");
         $("#input").modal("show");
       });
       $(".hapus").click(function () {
@@ -19040,7 +19044,7 @@ __webpack_require__.r(__webpack_exports__);
         }).then(function (result) {
           if (result.value) {
             if (result.isConfirmed) {
-              _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.delete("/product/".concat(id));
+              _inertiajs_inertia__WEBPACK_IMPORTED_MODULE_1__.Inertia.delete("/customer/".concat(id));
 
               _this2.getTable();
 
@@ -19055,7 +19059,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
-    $("#tabel-html").html(" <table\n                                        id=\"tabel\"\n                                        class=\"\n                                            table table-bordered table-striped\n                                        \"\n                                    >\n                                        <thead>\n                                            <tr>\n                                                <th>No</th>\n                                                <th>Nama</th>\n                                                <th>Stok</th>\n                                                <th>Satuan(unit)</th>\n                                                <th>Harga Satuan</th>\n                                                <th>Foto</th>\n\n                                                <th>Aksi</th>\n                                            </tr>\n                                        </thead>\n                                        <tbody\n                                            id=\"tabel-body\"\n                                        ></tbody>\n                                    </table>");
+    $("#tabel-html").html(" <table\n                                        id=\"tabel\"\n                                        class=\"\n                                            table table-bordered table-striped\n                                        \"\n                                    >\n                                        <thead>\n                                            <tr>\n                                                <th>No</th>\n                                                <th>Nama</th>\n                                                <th>Telepon</th>\n                                                <th>Email</th>\n                                                <th>Alamat</th>\n                                                <th>Diskon</th>\n                                                <th>Tipe Diskon</th>\n                                                <th>Foto</th>\n\n                                                <th>Aksi</th>\n                                            </tr>\n                                        </thead>\n                                        <tbody\n                                            id=\"tabel-body\"\n                                        ></tbody>\n                                    </table>");
     this.getTable();
     this.renderGetId();
     $("#tabel").DataTable();
@@ -22848,7 +22852,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h1", {
   "class": "m-0"
-}, "Product", -1
+}, "Customer", -1
 /* HOISTED */
 );
 
@@ -22877,7 +22881,7 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("
 /* HOISTED */
 );
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Tambah produk ");
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Tambah customer ");
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
   "class": "card-body"
@@ -22902,7 +22906,7 @@ var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
   "class": "modal-header"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("h4", {
   "class": "modal-title"
-}, "Tambah Product"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+}, "Tambah Customer"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
   type: "button",
   "class": "close",
   "data-dismiss": "modal",
@@ -22935,67 +22939,105 @@ var _hoisted_19 = {
   "class": "form-group"
 };
 
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Stok", -1
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Telepon", -1
 /* HOISTED */
 );
 
 var _hoisted_21 = {
-  "class": "form-group mb-4"
+  "class": "form-group"
 };
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Satuan", -1
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Alamat", -1
 /* HOISTED */
 );
 
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
+var _hoisted_23 = {
+  "class": "form-group"
+};
+
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Email", -1
+/* HOISTED */
+);
+
+var _hoisted_25 = {
+  "class": "form-group mb-4"
+};
+
+var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Tipe Diskon", -1
+/* HOISTED */
+);
+
+var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", {
   "class": "text-mute",
   selected: "",
   disabled: "",
   value: ""
-}, " Satuan ", -1
+}, " Tipe diskon ", -1
 /* HOISTED */
 );
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", null, "Paket", -1
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", null, "Percent", -1
 /* HOISTED */
 );
 
-var _hoisted_25 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", null, "Pcs", -1
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", null, "Fix", -1
 /* HOISTED */
 );
 
-var _hoisted_26 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("option", null, "Sachet", -1
-/* HOISTED */
-);
-
-var _hoisted_27 = {
+var _hoisted_30 = {
   "class": "form-group"
 };
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Harga Satuan", -1
+var _hoisted_31 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Diskon", -1
 /* HOISTED */
 );
 
-var _hoisted_29 = {
+var _hoisted_32 = {
+  key: 0,
+  "class": "input-group"
+};
+
+var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "input-group-prepend"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+  "class": "input-group-text"
+}, " Rp ")], -1
+/* HOISTED */
+);
+
+var _hoisted_34 = {
+  key: 1,
+  "class": "input-group"
+};
+
+var _hoisted_35 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+  "class": "input-group-append"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("span", {
+  "class": "input-group-text"
+}, "%")], -1
+/* HOISTED */
+);
+
+var _hoisted_36 = {
   "class": "form-group mb-4"
 };
 
-var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Foto", -1
+var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", null, "Foto KTP", -1
 /* HOISTED */
 );
 
-var _hoisted_31 = {
+var _hoisted_38 = {
   "class": "custom-file"
 };
-var _hoisted_32 = {
+var _hoisted_39 = {
   "class": "custom-file-label",
-  "for": "foto"
+  "for": "foto_ktp"
 };
-var _hoisted_33 = {
+var _hoisted_40 = {
   "class": "modal-footer justify-content-between"
 };
 
-var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
   type: "button",
   "class": "btn btn-default",
   "data-dismiss": "modal"
@@ -23003,19 +23045,19 @@ var _hoisted_34 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(
 /* HOISTED */
 );
 
-var _hoisted_35 = {
+var _hoisted_42 = {
   key: 0
 };
 
-var _hoisted_36 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("i", {
   "class": "fa fa-spinner fa-spin"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Loading ");
+var _hoisted_44 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Loading ");
 
-var _hoisted_38 = {
+var _hoisted_45 = {
   key: 1
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -23052,78 +23094,129 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_19, [_hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
         type: "text",
         "class": ["form-control", {
-          'is-invalid': $data.form.errors.stok
+          'is-invalid': $data.form.errors.telepon
         }],
-        placeholder: "Stok",
+        placeholder: "Telepon",
         "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-          return $data.form.stok = $event;
+          return $data.form.telepon = $event;
         })
       }, null, 2
       /* CLASS */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.stok]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.telepon]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
         "class": ["invalid-feedback mb-2", {
-          'd-block': $data.form.errors.stok
+          'd-block': $data.form.errors.telepon
         }]
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.stok), 3
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.telepon), 3
       /* TEXT, CLASS */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
-        "class": ["custom-select", {
-          'is-invalid': $data.form.errors.satuan
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+        type: "text",
+        "class": ["form-control", {
+          'is-invalid': $data.form.errors.alamat
         }],
+        placeholder: "Alamat",
         "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-          return $data.form.satuan = $event;
+          return $data.form.alamat = $event;
         })
-      }, [_hoisted_23, _hoisted_24, _hoisted_25, _hoisted_26], 2
+      }, null, 2
       /* CLASS */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.satuan]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.alamat]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+        "class": ["invalid-feedback mb-2", {
+          'd-block': $data.form.errors.alamat
+        }]
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.alamat), 3
+      /* TEXT, CLASS */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+        type: "text",
+        "class": ["form-control", {
+          'is-invalid': $data.form.errors.email
+        }],
+        placeholder: "Email",
+        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+          return $data.form.email = $event;
+        })
+      }, null, 2
+      /* CLASS */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.email]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+        "class": ["invalid-feedback mb-2", {
+          'd-block': $data.form.errors.email
+        }]
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.email), 3
+      /* TEXT, CLASS */
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_25, [_hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("select", {
+        "class": ["custom-select", {
+          'is-invalid': $data.form.errors.tipe_diskon
+        }],
+        "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+          return $data.form.tipe_diskon = $event;
+        })
+      }, [_hoisted_27, _hoisted_28, _hoisted_29], 2
+      /* CLASS */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.tipe_diskon]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
         "class": ["invalid-feedback mb-2", {
           'd-block': $data.form.errors.satuan
         }]
       }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.satuan), 3
       /* TEXT, CLASS */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_30, [_hoisted_31, $data.form.tipe_diskon == 'Percent' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_32, [_hoisted_33, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
         type: "text",
         "class": ["form-control", {
-          'is-invalid': $data.form.errors.harga_satuan
+          'is-invalid': $data.form.errors.diskon
         }],
-        placeholder: "Harga satuan",
-        "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-          return $data.form.harga_satuan = $event;
-        })
+        "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+          return $data.form.diskon = $event;
+        }),
+        placeholder: "Fix diskon"
       }, null, 2
       /* CLASS */
-      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.harga_satuan]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.diskon]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
         "class": ["invalid-feedback mb-2", {
-          'd-block': $data.form.errors.harga_satuan
+          'd-block': $data.form.errors.diskon
         }]
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.harga_satuan), 3
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.diskon), 3
       /* TEXT, CLASS */
-      )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+      )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.form.tipe_diskon == 'Fix' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
+        type: "text",
+        "class": ["form-control", {
+          'is-invalid': $data.form.errors.diskon
+        }],
+        "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
+          return $data.form.diskon = $event;
+        }),
+        placeholder: "Persentase diskon"
+      }, null, 2
+      /* CLASS */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.diskon]]), _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
+        "class": ["invalid-feedback mb-2", {
+          'd-block': $data.form.errors.diskon
+        }]
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.diskon), 3
+      /* TEXT, CLASS */
+      )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_38, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("input", {
         type: "file",
         "class": ["custom-file-input", {
-          'is-invalid': $data.form.errors.foto
+          'is-invalid': $data.form.errors.foto_ktp
         }],
-        ref: "foto",
-        onChange: _cache[6] || (_cache[6] = function () {
+        ref: "foto_ktp",
+        onChange: _cache[9] || (_cache[9] = function () {
           return $options.fotoChoosen && $options.fotoChoosen.apply($options, arguments);
         })
       }, null, 34
       /* CLASS, HYDRATE_EVENTS */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", _hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.filename), 1
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("label", _hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.filename), 1
       /* TEXT */
       )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", {
         "class": ["invalid-feedback mb-2", {
-          'd-block': $data.form.errors.foto
+          'd-block': $data.form.errors.foto_ktp
         }]
-      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.foto), 3
+      }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.errors.foto_ktp), 3
       /* TEXT, CLASS */
-      )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
+      )])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("div", _hoisted_40, [_hoisted_41, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)("button", {
         type: "button",
         "class": "btn btn-primary",
-        onClick: _cache[7] || (_cache[7] = function () {
+        onClick: _cache[10] || (_cache[10] = function () {
           return $options.simpan && $options.simpan.apply($options, arguments);
         })
-      }, [$data.onProgress == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_35, [_hoisted_36, _hoisted_37])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_38, "Simpan"))])])])])])];
+      }, [$data.onProgress == true ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_42, [_hoisted_43, _hoisted_44])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)("div", _hoisted_45, "Simpan"))])])])])])];
     }),
     _: 1
     /* STABLE */

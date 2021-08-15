@@ -38,11 +38,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        if ($request->kode == null) {
-            $this->validate($request, [
-                'foto' => ['required','image','mimes:jpeg,png,jpg', 'max:1024'],
-            ]);    
-        }
+
 
         $this->validate($request, [
             'nama' => ['required'],
@@ -51,6 +47,14 @@ class ProductController extends Controller
             'satuan' => ['required'],
            
         ]);
+        
+        if ($request->kode == null) {
+            $this->validate($request, [
+                'foto' => ['required','image','mimes:jpeg,png,jpg', 'max:1024'],
+            ]);    
+        }
+
+      
 
         $data = [
                 'nama' => $request->nama,
@@ -61,11 +65,16 @@ class ProductController extends Controller
         
         $foto = $request->file('foto');
         if ($foto) {
-            $cek = Product::where('id', $request->kode)->first();
-            $path = 'file/' . $cek['foto'];
-            if (is_file($path)) {
-                unlink($path);
+            try {
+                $cek = Product::where('id', $request->kode)->first();
+                $path = 'file/' . $cek['foto'];
+                if (is_file($path)) {
+                    unlink($path);
+                }
+            } catch (\Throwable $th) {
+                //throw $th;
             }
+          
             $extension = $foto->getClientOriginalExtension();
             $filename =  $request->nama . '_' . time() . '.' . $extension;
 

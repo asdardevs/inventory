@@ -2,7 +2,7 @@
     <div>
         <admin-lte>
             <template #header>
-                <h1 class="m-0">Product</h1>
+                <h1 class="m-0">Customer</h1>
             </template>
             <section class="content">
                 <div class="container-fluid">
@@ -16,7 +16,7 @@
                                         class="btn btn-primary btn-flat"
                                     >
                                         <i class="fas fa-plus mr-3"></i> Tambah
-                                        produk
+                                        customer
                                     </button>
                                 </div>
 
@@ -39,7 +39,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Tambah Product</h4>
+                            <h4 class="modal-title">Tambah Customer</h4>
                             <button
                                 type="button"
                                 class="close"
@@ -73,33 +73,75 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Stok</label>
+                                    <label>Telepon</label>
                                     <input
                                         type="text"
                                         class="form-control"
-                                        placeholder="Stok"
-                                        v-model="form.stok"
+                                        placeholder="Telepon"
+                                        v-model="form.telepon"
                                         :class="{
-                                            'is-invalid': form.errors.stok,
+                                            'is-invalid': form.errors.telepon,
                                         }"
                                     />
                                     <div
                                         class="invalid-feedback mb-2"
                                         :class="{
-                                            'd-block': form.errors.stok,
+                                            'd-block': form.errors.telepon,
                                         }"
                                     >
-                                        {{ form.errors.stok }}
+                                        {{ form.errors.telepon }}
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Alamat</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Alamat"
+                                        v-model="form.alamat"
+                                        :class="{
+                                            'is-invalid': form.errors.alamat,
+                                        }"
+                                    />
+                                    <div
+                                        class="invalid-feedback mb-2"
+                                        :class="{
+                                            'd-block': form.errors.alamat,
+                                        }"
+                                    >
+                                        {{ form.errors.alamat }}
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        placeholder="Email"
+                                        v-model="form.email"
+                                        :class="{
+                                            'is-invalid': form.errors.email,
+                                        }"
+                                    />
+                                    <div
+                                        class="invalid-feedback mb-2"
+                                        :class="{
+                                            'd-block': form.errors.email,
+                                        }"
+                                    >
+                                        {{ form.errors.email }}
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-4">
-                                    <label>Satuan</label>
+                                    <label>Tipe Diskon</label>
                                     <select
                                         class="custom-select"
-                                        v-model="form.satuan"
+                                        v-model="form.tipe_diskon"
                                         :class="{
-                                            'is-invalid': form.errors.satuan,
+                                            'is-invalid':
+                                                form.errors.tipe_diskon,
                                         }"
                                     >
                                         <option
@@ -108,12 +150,11 @@
                                             disabled
                                             value=""
                                         >
-                                            Satuan
+                                            Tipe diskon
                                         </option>
 
-                                        <option>Paket</option>
-                                        <option>Pcs</option>
-                                        <option>Sachet</option>
+                                        <option>Percent</option>
+                                        <option>Fix</option>
                                     </select>
                                     <div
                                         class="invalid-feedback mb-2"
@@ -126,52 +167,92 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Harga Satuan</label>
-                                    <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Harga satuan"
-                                        v-model="form.harga_satuan"
-                                        :class="{
-                                            'is-invalid':
-                                                form.errors.harga_satuan,
-                                        }"
-                                    />
+                                    <label>Diskon</label>
                                     <div
-                                        class="invalid-feedback mb-2"
-                                        :class="{
-                                            'd-block': form.errors.harga_satuan,
-                                        }"
+                                        class="input-group"
+                                        v-if="form.tipe_diskon == 'Percent'"
                                     >
-                                        {{ form.errors.harga_satuan }}
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                Rp
+                                            </span>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            v-model="form.diskon"
+                                            :class="{
+                                                'is-invalid':
+                                                    form.errors.diskon,
+                                            }"
+                                            placeholder="Fix diskon"
+                                        />
+                                        <div
+                                            class="invalid-feedback mb-2"
+                                            :class="{
+                                                'd-block': form.errors.diskon,
+                                            }"
+                                        >
+                                            {{ form.errors.diskon }}
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="input-group"
+                                        v-if="form.tipe_diskon == 'Fix'"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="form-control"
+                                            v-model="form.diskon"
+                                            :class="{
+                                                'is-invalid':
+                                                    form.errors.diskon,
+                                            }"
+                                            placeholder="Persentase diskon"
+                                        />
+                                        <div class="input-group-append">
+                                            <span class="input-group-text"
+                                                >%</span
+                                            >
+                                        </div>
+                                        <div
+                                            class="invalid-feedback mb-2"
+                                            :class="{
+                                                'd-block': form.errors.diskon,
+                                            }"
+                                        >
+                                            {{ form.errors.diskon }}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group mb-4">
-                                    <label>Foto</label>
+                                    <label>Foto KTP</label>
                                     <div class="custom-file">
                                         <input
                                             type="file"
                                             class="custom-file-input"
-                                            ref="foto"
+                                            ref="foto_ktp"
                                             :class="{
-                                                'is-invalid': form.errors.foto,
+                                                'is-invalid':
+                                                    form.errors.foto_ktp,
                                             }"
                                             v-on:change="fotoChoosen"
                                         />
                                         <label
                                             class="custom-file-label"
-                                            for="foto"
+                                            for="foto_ktp"
                                             >{{ filename }}</label
                                         >
                                     </div>
                                     <div
                                         class="invalid-feedback mb-2"
                                         :class="{
-                                            'd-block': form.errors.foto,
+                                            'd-block': form.errors.foto_ktp,
                                         }"
                                     >
-                                        {{ form.errors.foto }}
+                                        {{ form.errors.foto_ktp }}
                                     </div>
                                 </div>
                             </form>
@@ -210,19 +291,21 @@ import AdminLte from "@/Layouts/AdminLte";
 import { Inertia } from "@inertiajs/inertia";
 
 export default {
-    props: ["product"],
+    props: ["customer"],
     components: {
         AdminLte,
     },
     data() {
         return {
             form: this.$inertia.form({
-                nama: "",
-                stok: "",
-                harga_satuan: "",
-                satuan: "",
-                foto: "",
                 kode: "",
+                nama: "",
+                telepon: "",
+                alamat: "",
+                email: "",
+                diskon: "",
+                tipe_diskon: "",
+                foto_ktp: "",
             }),
             onProgress: false,
         };
@@ -235,22 +318,32 @@ export default {
         getTable() {
             var html = "";
             var no = 1;
-            this.product.forEach((element) => {
+            this.customer.forEach((element) => {
                 html += `<tr>
                 <td>${no++}</td>
                 <td>${element.nama}</td>
-                <td>${element.stok}</td>
-                <td>${element.harga_satuan}</td>
-                <td>${element.satuan}</td>
-                <td> <img src="/file/${
-                    element.foto
+                <td>${element.telepon}</td>
+                <td>${element.alamat}</td>
+                <td>${element.email}</td>
+                <td>${element.diskon}</td>
+                <td> ${
+                    element.tipe_diskon == 0
+                        ? '<span class="badge bg-primary">Percent</span>'
+                        : '<span class="badge bg-danger">Fix</span>'
+                }</td>
+                <td> <img src="/ktp/${
+                    element.foto_ktp
                 }" " width="80px" alt=""></td>
-                <td>
+               
+               <td>
                 <button type="button"  class="btn btn-block btn-default btn-flat edit" 
                 data-id="${element.id}"  
-                data-nama="${element.nama}" data-stok="${element.stok}" 
-                data-harga_satuan="${element.harga_satuan}" 
-                data-satuan="${element.satuan}">Edit</button> 
+                data-nama="${element.nama}" 
+                data-telepon="${element.telepon}" 
+                data-alamat="${element.alamat}" 
+                data-diskon="${element.diskon}" 
+                data-tipe_diskon="${element.tipe_diskon}" 
+                data-email="${element.email}">Edit</button> 
               <button type="button"
                 class="btn btn-block btn-danger btn-flat hapus" data-id="${
                     element.id
@@ -264,12 +357,12 @@ export default {
         },
 
         simpan() {
-            if (this.$refs.foto) {
-                this.form.foto = this.$refs.foto.files[0];
+            if (this.$refs.foto_ktp) {
+                this.form.foto_ktp = this.$refs.foto_ktp.files[0];
             }
             var self = this;
             this.onProgress = true;
-            this.form.post(this.route("product.store"), {
+            this.form.post(this.route("customer.store"), {
                 preserveScroll: true,
                 onSuccess: () => {
                     self.onProgress = false;
@@ -298,10 +391,12 @@ export default {
                 const id = $(this).data("id");
 
                 self.form.kode = id;
-                self.form.harga_satuan = $(this).data("harga_satuan");
-                self.form.satuan = $(this).data("satuan");
                 self.form.nama = $(this).data("nama");
-                self.form.stok = $(this).data("stok");
+                self.form.telepon = $(this).data("telepon");
+                self.form.alamat = $(this).data("alamat");
+                self.form.email = $(this).data("email");
+                self.form.diskon = $(this).data("diskon");
+                self.form.tipe_diskon = $(this).data("tipe_diskon");
 
                 $("#input").modal("show");
             });
@@ -320,7 +415,7 @@ export default {
                 }).then((result) => {
                     if (result.value) {
                         if (result.isConfirmed) {
-                            Inertia.delete(`/product/${id}`);
+                            Inertia.delete(`/customer/${id}`);
                             this.getTable();
                             this.renderGetId();
                         }
@@ -345,9 +440,11 @@ export default {
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama</th>
-                                                <th>Stok</th>
-                                                <th>Satuan(unit)</th>
-                                                <th>Harga Satuan</th>
+                                                <th>Telepon</th>
+                                                <th>Email</th>
+                                                <th>Alamat</th>
+                                                <th>Diskon</th>
+                                                <th>Tipe Diskon</th>
                                                 <th>Foto</th>
 
                                                 <th>Aksi</th>
