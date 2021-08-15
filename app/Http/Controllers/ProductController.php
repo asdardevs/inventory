@@ -38,7 +38,41 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($request->kode == null) {
+            $this->validate($request, [
+                'foto' => ['required','image','mimes:jpeg,png,jpg', 'max:1024'],
+            ]);    
+        }
+
+        $this->validate($request, [
+            'nama' => ['required'],
+            'stok' => ['required','numeric'],
+            'harga_satuan' => ['required','numeric'],
+            'satuan' => ['required'],
+           
+        ]);
+
+        $data = [
+                'nama' => $request->nama,
+                'stok' => $request->stok,
+                'harga_satuan' => $request->harga_satuan,
+                'satuan' => $request->satuan,
+        ];
+        
+        $foto = $request->file('foto');
+        if ($foto) {
+            $extension = $foto->getClientOriginalExtension();
+            $filename =  $request->nama . '_' . time() . '.' . $extension;
+            $foto->move('file/', $filename);
+            $data['foto'] = $filename;
+          
+        }
+
+        Product::updateOrCreate(
+            ['id' => $request->kode],
+            $data
+        );
+        return back();
     }
 
     /**
@@ -83,6 +117,13 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //find post by ID
+        $post = Product::findOrfail($id);
+
+        //delete post
+        $post->delete();
+
+        return back();
+
     }
 }

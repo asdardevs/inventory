@@ -3,15 +3,7 @@
     <aside class="main-sidebar elevation-4 sidebar-light-warning">
         <!-- Brand Logo -->
         <inertia-link :href="route('beranda.index')" class="brand-link">
-            <img
-                src="/lte/dist/img/unm1.png"
-                alt="AdminLTE Logo"
-                class="brand-image img-circle elevation-3"
-                style="opacity: 0.8"
-            />
-            <span class="brand-text font-weight-light"
-                ><span class="font-weight-bold">UNM </span>| Office 365</span
-            >
+            <span class="brand-text font-weight-light">Inventory</span>
         </inertia-link>
 
         <!-- Sidebar -->
@@ -38,6 +30,7 @@
                     role="menu"
                     data-accordion="false"
                 >
+                    <li class="nav-header text-secondary pl-3">Master</li>
                     <li class="nav-item">
                         <inertia-link
                             :href="route('beranda.index')"
@@ -60,6 +53,36 @@
                         >
                             <i class="nav-icon fas fa-file-import"></i>
                             <p>Product</p>
+                        </inertia-link>
+                    </li>
+
+                    <li class="nav-item">
+                        <inertia-link
+                            :href="route('product.index')"
+                            class="nav-link"
+                            :class="
+                                route().current('product.*') ? 'active' : ' '
+                            "
+                        >
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Customer</p>
+                        </inertia-link>
+                    </li>
+
+                    <li class="nav-header text-secondary pl-3">
+                        Transaksi penjualan
+                    </li>
+
+                    <li class="nav-item">
+                        <inertia-link
+                            :href="route('product.index')"
+                            class="nav-link"
+                            :class="
+                                route().current('product.*') ? 'active' : ' '
+                            "
+                        >
+                            <i class="nav-icon fas fa-shopping-cart"></i>
+                            <p>Transaksi</p>
                         </inertia-link>
                     </li>
 

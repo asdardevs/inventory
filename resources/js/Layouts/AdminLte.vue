@@ -51,3 +51,13 @@ export default {
     mounted: function () {},
 };
 </script>
+
+<style>
+.buttonload {
+    background-color: #04aa6d; /* Green background */
+    border: none; /* Remove borders */
+    color: white; /* White text */
+    padding: 12px 16px; /* Some padding */
+    font-size: 16px; /* Set a font size */
+}
+</style>
